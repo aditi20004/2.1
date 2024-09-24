@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    tools {
+        maven 'Maven 3.9' // The name you gave to your Maven installation
+    }
+    
     environment {
         APP_NAME = 'your-app'
     }
@@ -14,7 +18,6 @@ pipeline {
         
         stage('Build') {
             steps {
-                // Replace 'sh' with 'bat' for Windows
                 bat 'mvn clean install'
             }
         }
@@ -32,14 +35,12 @@ pipeline {
         
         stage('Code Quality Analysis') {
             steps {
-                // For SonarQube, or other tools if installed on Windows
                 bat 'mvn sonar:sonar'
             }
         }
         
         stage('Deploy') {
             steps {
-                // Adjust this for Windows. If using Docker on Windows, use the correct Docker command
                 bat 'docker-compose up -d'
             }
         }
