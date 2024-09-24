@@ -8,19 +8,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/aditi20004/2.1.git', branch: 'master'
+                git url: 'https://github.com/aditi20004/2.1.git', branch: 'main'
             }
         }
         
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                // Replace 'sh' with 'bat' for Windows
+                bat 'mvn clean install'
             }
         }
         
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
             post {
                 always {
@@ -31,15 +32,15 @@ pipeline {
         
         stage('Code Quality Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
-                }
+                // For SonarQube, or other tools if installed on Windows
+                bat 'mvn sonar:sonar'
             }
         }
         
         stage('Deploy') {
             steps {
-                sh 'docker-compose up -d'
+                // Adjust this for Windows. If using Docker on Windows, use the correct Docker command
+                bat 'docker-compose up -d'
             }
         }
         
@@ -52,7 +53,7 @@ pipeline {
     
     post {
         always {
-            mail to: 'youremail@example.com',
+            mail to: 'shrivastavaditi14@gmail.com',
                 subject: "Pipeline ${currentBuild.fullDisplayName} completed",
                 body: "Build ${currentBuild.result} \n Check the console output: ${env.BUILD_URL}"
         }
