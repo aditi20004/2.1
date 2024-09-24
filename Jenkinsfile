@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/your-username/your-repo-name.git', branch: 'master'
+                git url: 'https://github.com/aditi20004/2.1.git', branch: 'master'
             }
         }
         
